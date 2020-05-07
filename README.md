@@ -1,9 +1,11 @@
 # TitanicMachineLearning
 
-This project showcases a machine learning solution to the Kaggle competition 'Titanic: Machhine Learning from Disaster'. I used feature engineering to derive variables and multiple imputation with chained equations (MICE) to impute missing data.
+This project showcases a machine learning solution to the Kaggle competition 'Titanic: Machine Learning from Disaster'. The data set contains biographical details for several hundred passengers onboard the Titanic. The goal of the competition was to predict which passengers in the testing data set survived.
 
-I tested random forests and gradient-boosted machines as candidate models. To make predictions, I pooled votes from individual ensembles trained on imputed data sets. 
+Variable selection and feature engineering were key steps in my analysis. I used multiple imputation with chained equations (MICE) to impute missing data.
 
-Random forests achieved an accuracy of 79%. I found that sub-sampling without replacement yielded better results than bootstrapping. This was possibly an optimization of the bias-variance tradeoff. 
+I tested random forests and gradient-boosted machines as candidate models. To make predictions, I pooled votes from 20 ensembles trained on imputed data sets. 
 
-Gradient boosted machines achieved an accuracy of 80%, which is in the top 8% of all submissions.
+Random forests achieved 79% accuracy. I found that sub-sampling without replacement yielded better results than bootstrapping. This was likely an optimization of the bias-variance tradeoff. 
+
+Gradient boosted machines achieved 80% accuracy, which is in the top 8% of all submissions.
