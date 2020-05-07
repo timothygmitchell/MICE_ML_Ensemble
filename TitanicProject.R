@@ -1,6 +1,6 @@
 ################################# READ IN DATA ##########################################
 
-setwd("/home/tim/Documents/R/STAT488Nonparametric/Titanic Project")
+# Data (train.csv and test.csv) can be obtained from https://www.kaggle.com/c/titanic/data
 
 library(VIM) # matrix plots
 library(miceRanger) # multiple imputation with chained equations
