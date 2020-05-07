@@ -4,6 +4,6 @@ This project showcases a machine learning solution to the Kaggle competition 'Ti
 
 I chose random forests and gradient-boosted machines as candidate models. To make predictions, I pooled votes from individual ensembles trained using imputed data sets. 
 
-Random forests achieved an accuracy of 79%, I found that sub-sampling without replacement yielded better results than bootstrapping, a possible optimization of bias-variance tradeoff. 
+Random forests achieved an accuracy of 79%. I found that sub-sampling without replacement yielded better results than bootstrapping. This was possibly an optimization of the bias-variance tradeoff. 
 
-Gradient boosted machines achieved an accuracy of 80% -- which is in the top 8% of all submissions.
+Gradient boosted machines achieved an accuracy of 80%, which is in the top 8% of all submissions.
