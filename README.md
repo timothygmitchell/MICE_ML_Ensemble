@@ -2,17 +2,17 @@
 
 This project showcases an ensemble machine learning solution to the Kaggle competition [Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic). The goal was to predict who survived the sinking of the Titanic based on biographical details such as age, sex, and passenger class.
 
-Besides variable selection and feature engineering (discarding variables with little benefit, extracting honorific titles from passenger names), my solution involved **multiple imputation with chained equations** (MICE) to **diversify and regularize machine learning ensembles**.
+Besides variable selection and feature engineering, my solution involved **multiple imputation with chained equations** (MICE) to **diversify and regularize machine learning ensembles**.
 
-MICE is a fast, flexible method for imputing numeric and categorical missing data. From a Bayesian perspective, missing values are assigned predictive posterior distributions conditioned upon existing data. Each iteration of MICE samples from these distributions. 
+MICE is a flexible framework for imputing categorical and numeric data. From a Bayesian perspective, MICE assigns predictive posterior distributions to missing data conditioned upon existing data. Each iteration of MICE results in a random draw from theoretical distributions. The resulting imputations incorporate probability estimates.
 
-MICE [performs well in simulation studies](https://pdfs.semanticscholar.org/dc64/aca1a942615fd932bc2b8e24f954b7a4d2c9.pdf) but does involve certain considerations. First, data need to be missing at random (MAR) for optimal performance. I show that it is easy to flag obvious violations with matrix plots. Second, MICE can be computationally slow. I show it is easy to run imputations in parallel by initializing a virtual cluster.
+MICE [performs well in simulation studies](https://pdfs.semanticscholar.org/dc64/aca1a942615fd932bc2b8e24f954b7a4d2c9.pdf) but it does have certain considerations. First, data should be missing at random (MAR). I show how to use matrix plots to investigate. Second, MICE does not always scale for large data sets. I show how to run imputations in parallel by initializing a virtual cluster.
 
-To make predictions, I pooled votes from ensembles of tree-based models. Since models were trained on multiple imputations, the resulting ensembles showed better diversity, better regularizing properties, and less sensitivity to overfitting.
+For predictions, I pooled votes from ensembles of tree-based models. Since models were trained on multiple imputations, the resulting ensembles had greater diversity and better regularizing properties. Thus, MICE is not only advantageous in imputating missing data but in model stacking as well.
 
-In the first case I aggregated decision trees from 20 random forests trained on 20 imputations of the training data, then made predictions for each of 20 imputations of the testing data. Predictions were averaged by majority vote.
+In the first case I aggregated decision trees from 20 random forests trained on 20 imputations of the training data, then made predictions using 20 imputations of the testing data.
 
-In the second case, I pooled votes from an ensemble of 400 GBM models, so that each imputation of the training data was paired once with each imputation of the testing data during the train/test process.
+In the second case, I trained 400 GBM models, so that each imputation of the training data was paired once with each imputation of the testing data during the train/test procedure.
 
 Random forests achieved 79% accuracy. I found that sub-sampling without replacement had better results than bootstrapping. Sub-sampling can optimize bias-variance tradeoff to reduce generalization error.
 
