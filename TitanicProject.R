@@ -1,17 +1,22 @@
 ################################# READ IN DATA ##########################################
 
-# Data (train.csv and test.csv) can be obtained from https://www.kaggle.com/c/titanic/data
+env = "https://github.com/timothygmitchell/MICE_ML_Ensemble/raw/master/"
 
 library(VIM) # matrix plots
+library(doParallel) # parallelization 
 library(miceRanger) # multiple imputation with chained equations
 library(randomForest) # random forests
 library(gbm) # gradient boosted machines
 
-train <- read.csv("train.csv", stringsAsFactors=T, na.strings = c(NA, "")) # training data
-test <- read.csv("test.csv", stringsAsFactors=T, na.strings = c(NA, "")) # testing data
+train <- read.csv(paste0(env, "train.csv"),  na.strings = c(NA, "")) # training data
+test <- read.csv(paste0(env, "test.csv"), na.strings = c(NA, "")) # testing data
 
 # Treat response variable as factor
 train$Survived <- factor(train$Survived)
+
+# Treat passenger class as factor
+train$Pclass <- factor(train$Pclass)
+test$Pclass <- factor(test$Pclass)
 
 # Extract titles in training data, keep the most common of these
 train$Title <- gsub('(.*, )|(\\..*)', '', train$Name)
@@ -49,22 +54,27 @@ sapply(test, function(x)sum(is.na(x)))
 VIM::matrixplot(train, sortby = "Survived", main = "Missingness in Training Data")
 VIM::matrixplot(test, main = "Missingness in Test Data")
 
+# Run in parallel
+cl <- makeCluster(detectCores() - 1) # use 1 less than the maximum no of cores
+registerDoParallel(cl) # parallelize cluster
+
 # m = 20 multiple imputations
 imputeddat <- completeData(miceRanger(train, 
                                       vars = list(Age = c("Pclass", "Sex", "Title"),
                                                   Embarked = c("Pclass", "Sex", "Title")),
-                                      m = 20, maxiter = 10))
+                                      m = 20, maxiter = 10, parallel = TRUE))
 
 # m = 20 multiple imputations
 imputedtestdat <- completeData(miceRanger(test, 
                                           vars = list(Age = c("Pclass", "Sex", "Title"),
                                                       Fare = c("Pclass", "Sex", "Title")),
-                                          m = 20, maxiter = 10))
+                                          m = 20, maxiter = 10, parallel = TRUE))
+
+stopCluster(cl); registerDoSEQ() # turn off cluster
 
 ################################### RANDOM FORESTS ########################################
 
-set.seed(1234)
-imputedrfs <- list()
+imputedrfs <- list() # allocate list of random forests
 
 # Generate 20 random forests from 20 imputed data sets
 for  (m in 1:20){
