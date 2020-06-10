@@ -1,4 +1,4 @@
-# Model_Stacking_Titanic_Machine_Learning
+# MICE_ML_Ensemble
 
 This project showcases an ensemble machine learning solution to the Kaggle competition 'Titanic: Machine Learning from Disaster'. The goal of the competition was to predict who in the test data survived the sinking of the Titanic based on training data for 891 passengers. Data included biographical details such as age, sex, and passenger class.
 
