@@ -2,7 +2,7 @@
 
 This project showcases an ensemble machine learning solution to the Kaggle competition [Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic). My solution involves a unique, robust approach to recovering missing data that [has only recently been explored in the scientific literature](https://biostats.bepress.com/ucbbiostat/paper266/).
 
-Along with variable selection and feature engineering, I used **multiple imputation with chained equations** ([MICE](https://pdfs.semanticscholar.org/dc64/aca1a942615fd932bc2b8e24f954b7a4d2c9.pdf)) to **diversify and regularize machine learning ensembles**.
+Along with variable selection and feature engineering, I used **multiple imputation with chained equations** ([MICE](https://pdfs.semanticscholar.org/dc64/aca1a942615fd932bc2b8e24f954b7a4d2c9.pdf)) to **train, diversify, and regularize machine learning ensembles**.
 
 MICE is a flexible framework for imputing categorical and numeric data. From a Bayesian perspective, MICE assigns predictive posterior distributions to missing data conditioned upon existing data. Each iteration of MICE results in a random draw from theoretical distributions. The resulting imputations incorporate probability estimates.
 
