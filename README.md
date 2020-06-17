@@ -10,7 +10,7 @@ MICE has two considerations. First, data should be missing at random (MAR). I sh
 
 Since models were trained on multiple imputations, ensembles of such models show **greater diversity, better regularizing properties, and less sensitivity to overfitting**. I tested two kinds of ensembles, random forests and gradient boosted machines, and pooled together votes to make predictions.
 
-In the first case I aggregated decision trees from 20 random forests trained on 20 imputations of the training data, then made predictions using 20 imputations of the testing data. In the second case, I trained 400 GBMs, so that each imputation of the training data (20) was paired once with each imputation of the testing data (20).
+In the first case I aggregated decision trees from 20 random forests trained on 20 imputations of the training data, then made predictions using 20 imputations of the testing data. In the second case, I trained 400 GBMs, so that each imputation of the training data (20) was paired once with each imputation of the testing data (20). In both cases, the final vote was determined by the majority.
 
 Random forests achieved 79% accuracy. I found that sub-sampling without replacement had better results than bootstrapping. Sub-sampling can optimize the bias-variance tradeoff.
 
