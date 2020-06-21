@@ -2,7 +2,7 @@
 
 [Multiple imputation ensembles](https://biostats.bepress.com/ucbbiostat/paper266/) (MIE) are a robust method for recovering missing data in classification problems. Here I apply MIE to the [Titanic competition](https://www.kaggle.com/c/titanic) on Kaggle. After variable selection and feature engineering, I used **multiple imputation with chain equations** ([MICE](https://pdfs.semanticscholar.org/dc64/aca1a942615fd932bc2b8e24f954b7a4d2c9.pdf)) to **train machine learning ensembles** of random forests and GBMs.
 
-MICE is a flexible framework for imputing categorical and numerical data. Each missing value is treated as a random variable from a posterior predictive distribution, and each iteration of MICE recovers missing data by random sampling from these distributions. The resulting imputations incorporate uncertainty estimates.
+MICE is a flexible framework for imputing categorical and numerical data. Each missing value is treated as a random variable from a posterior predictive distribution, and each iteration of MICE recovers missing data by randomly sampling from these distributions. The resulting imputations incorporate uncertainty estimates.
 
 MICE has two considerations. First, data should be missing at random (MAR). I show how to use matrix plots to investigate. Second, MICE can be slow depending on the application. I show how to **run imputations in parallel** by initializing a **virtual cluster**.
 
